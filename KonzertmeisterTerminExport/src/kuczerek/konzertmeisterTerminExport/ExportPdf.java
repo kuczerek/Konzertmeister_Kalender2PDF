@@ -71,6 +71,10 @@ public class ExportPdf {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 		String planVon = formatter.format(alleTermine.getRead().getTime());
 		String aenderungenSeit = formatter.format(alleTermine.getComparedTo().getTime());
+		//tablesize Array für fünf Spalten mit Ort
+		//float [] tablesize = new float[] { 9, 8, 30, 30, 30 };
+		//tablesize Array für vier Spalten mit Ort
+		float [] tablesize = new float[] { 6, 5, 30, 30 };
 				
 		try (Document document = new Document(pdfDocument)) {
 			
@@ -117,7 +121,7 @@ public class ExportPdf {
 			Paragraph ueberschrift;
 			ueberschrift = new Paragraph("Probentermine");
 			document.add(ueberschrift);
-			table = new Table(new float[] { 9, 8, 30, 30, 30 });
+			table = new Table(tablesize);
 			table.setWidth(uv);
 			table.setFixedLayout();
 			createTableHeader(table);
@@ -127,7 +131,7 @@ public class ExportPdf {
 			//Auftrittstabelle
 			ueberschrift = new Paragraph("Auftrittstermine");
 			document.add(ueberschrift);
-			table = new Table(new float[] { 9, 8, 30, 30, 30 });
+			table = new Table(tablesize);
 			table.setWidth(uv);
 			table.setFixedLayout();
 			createTableHeader(table);
@@ -137,7 +141,7 @@ public class ExportPdf {
 			//Sonstige Termine
 			ueberschrift = new Paragraph("Sonstige Termine");
 			document.add(ueberschrift);
-			table = new Table(new float[] { 9, 8, 30, 30, 30 });
+			table = new Table(tablesize);
 			table.setWidth(uv);
 			table.setFixedLayout();
 			createTableHeader(table);
@@ -178,13 +182,13 @@ public class ExportPdf {
 				.setFontSize(fontSize);
 		cell.add(par);
 		table.addHeaderCell(cell);			
-		cell = new Cell(1, 1)
-				.setBackgroundColor(ColorConstants.LIGHT_GRAY)
-				.setMargin(5);
-		par = new Paragraph("Ort")
-				.setFontSize(fontSize);
-		cell.add(par);
-		table.addHeaderCell(cell);	
+//		cell = new Cell(1, 1)
+//				.setBackgroundColor(ColorConstants.LIGHT_GRAY)
+//				.setMargin(5);
+//		par = new Paragraph("Ort")
+//				.setFontSize(fontSize);
+//		cell.add(par);
+//		table.addHeaderCell(cell);	
 	}
 	
 	private void createTableContent(Table table, ArrayList<BchTermin> termine) {
@@ -267,21 +271,21 @@ public class ExportPdf {
 			}
 			table.addCell(cell);
 			
-			//Ort Zelle
-			par = new Paragraph(termin.getOrtString())
-					.setFontSize(fontSize);
-			if (termin.isDeleted()) {
-				par.setLineThrough();
-			}
-			cell = new Cell(1, 1)
-					.setTextAlignment(TextAlignment.LEFT)
-					.add(par);
-			if (termin.isNew() || termin.isDeleted() || termin.isOrtUpdated())  {
-				cell.setBackgroundColor(ColorConstants.YELLOW);
-			} else {
-				cell.setBackgroundColor(ColorConstants.WHITE);	
-			}
-			table.addCell(cell);	
+//			//Ort Zelle
+//			par = new Paragraph(termin.getOrtString())
+//					.setFontSize(fontSize);
+//			if (termin.isDeleted()) {
+//				par.setLineThrough();
+//			}
+//			cell = new Cell(1, 1)
+//					.setTextAlignment(TextAlignment.LEFT)
+//					.add(par);
+//			if (termin.isNew() || termin.isDeleted() || termin.isOrtUpdated())  {
+//				cell.setBackgroundColor(ColorConstants.YELLOW);
+//			} else {
+//				cell.setBackgroundColor(ColorConstants.WHITE);	
+//			}
+//			table.addCell(cell);	
 		}
 	}	
 }
