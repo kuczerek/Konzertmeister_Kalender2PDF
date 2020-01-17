@@ -1,4 +1,4 @@
-package czerwon.konzertmeisterTerminExport;
+package kuczerek.konzertmeisterTerminExport;
 
 import javax.swing.*;
 import java.awt.*;

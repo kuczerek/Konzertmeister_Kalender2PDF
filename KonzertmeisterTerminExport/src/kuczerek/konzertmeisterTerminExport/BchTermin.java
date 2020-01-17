@@ -1,4 +1,4 @@
-package czerwon.konzertmeisterTerminExport;
+package kuczerek.konzertmeisterTerminExport;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

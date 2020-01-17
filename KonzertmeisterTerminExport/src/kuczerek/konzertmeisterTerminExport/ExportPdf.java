@@ -1,4 +1,4 @@
-package czerwon.konzertmeisterTerminExport;
+package kuczerek.konzertmeisterTerminExport;
 
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.pdf.*;
