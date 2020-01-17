@@ -12,7 +12,7 @@ public class Main {
 			Point upperLeft = SplashScreen.getSplashScreen().getBounds().getLocation();
 			splash.setLocation(upperLeft);
 		} catch (Exception e) {
-			//do nothing
+			//do nothing?
 		}
 
 		splash.setVisible(true);
