@@ -23,8 +23,8 @@ public class DownloadIcs {
 	public void downloadIcs2Disk() {
 		
 		//Verzeichnis ggf. erstellen
-		Path filePath = Paths.get(Properties.relPathIcs + filename);
-	     File folder = new File(Properties.relPathIcs);
+		Path filePath = Paths.get(Properties.REL_PATH_ICS + filename);
+	     File folder = new File(Properties.REL_PATH_ICS);
 	     if(!folder.exists()) {
 	    	 try {
 	    		 Files.createDirectory(filePath.getParent());
@@ -36,7 +36,7 @@ public class DownloadIcs {
 		//Datei runterladen
 		try {
 			InputStream in = new URL(icsUrl).openStream();
-			Files.copy(in, Paths.get(Properties.relPathIcs + filename), StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(in, Paths.get(Properties.REL_PATH_ICS + filename), StandardCopyOption.REPLACE_EXISTING);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

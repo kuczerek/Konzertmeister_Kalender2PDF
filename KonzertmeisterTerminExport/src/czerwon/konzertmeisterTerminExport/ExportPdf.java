@@ -44,8 +44,8 @@ public class ExportPdf {
 		String filename = "BCH Terminplan " + formatter.format(terminplan.getRead().getTime()) + ".pdf";
 		
 		//Verzeichnis ggf. erstellen
-		Path filePath = Paths.get(Properties.relPathPdf + filename);
-	     File folder = new File(Properties.relPathPdf);
+		Path filePath = Paths.get(Properties.REL_PATH_PDF + filename);
+	     File folder = new File(Properties.REL_PATH_PDF);
 	     if(!folder.exists()) {
 	    	 try {
 	    		 Files.createDirectory(filePath.getParent());
@@ -55,7 +55,7 @@ public class ExportPdf {
 	     }
 		
 		try {
-			pdfDocument = new PdfDocument(new PdfWriter(Properties.relPathPdf + filename));	
+			pdfDocument = new PdfDocument(new PdfWriter(Properties.REL_PATH_PDF + filename));	
 		} catch (IOException ioe){
 			//ioe.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Die PDF Datei "+filename+" kann nicht geschrieben werden, da sie von einem anderen Programm geöffnet ist.\n"
