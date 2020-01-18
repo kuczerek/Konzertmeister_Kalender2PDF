@@ -26,7 +26,7 @@ public class Main {
 		splash.setPbarString("Download Konzertmeister Kalender...");
 
 		DownloadIcs down = new DownloadIcs(Properties.KONZERTMEISTER_ICS_URL);
-		//down.downloadIcs2Disk();
+		down.downloadIcs2Disk();
 
 		splash.setPbarValue(25);
 		splash.setPbarString("Einlesen Konzertmeister Kalender...");
