@@ -1,12 +1,19 @@
 package kuczerek.konzertmeisterTerminExport;
 
 import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.events.Event;
+import com.itextpdf.kernel.events.IEventHandler;
+import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.pdf.*;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
+import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.*;
 import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.io.image.*;
 
 import java.io.File;
@@ -25,20 +32,10 @@ public class ExportPdf {
 	private PdfDocument pdfDocument; 
 	private Terminplan alleTermine;
 	
-	public ExportPdf(String filename, Terminplan terminplan) {
-
-		this.alleTermine = terminplan;
-		try {
-			pdfDocument = new PdfDocument(new PdfWriter(filename));	
-		} catch (IOException ioe){
-			ioe.printStackTrace();
-		}
-		pdfDocument.setDefaultPageSize(PageSize.A4.rotate());
-	}
-	
 	public ExportPdf(Terminplan terminplan) {
 
 		this.alleTermine = terminplan;
+		Footer footerHandler = new Footer();
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd.-HH.mm.ss");
 		String filename = "BCH Terminplan " + formatter.format(terminplan.getRead().getTime()) + ".pdf";
@@ -60,10 +57,12 @@ public class ExportPdf {
 			//ioe.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Die PDF Datei "+filename+" kann nicht geschrieben werden, da sie von einem anderen Programm geöffnet ist.\n"
 					+ "Bitte die Datei schließen!\n" 
-					+ "Das Programm wird beendet!", "Konzertmeister Kalender2PDF", JOptionPane.ERROR_MESSAGE);
+					+ "Das Programm wird beendet!", Properties.APPTITLE, JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 		pdfDocument.setDefaultPageSize(PageSize.A4.rotate());
+		pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, footerHandler);
+		 
 	}
 	
 	public void printPdf() {
@@ -287,5 +286,44 @@ public class ExportPdf {
 //			}
 //			table.addCell(cell);	
 		}
-	}	
+	}
+	
+	// Footer event handler
+    protected class Footer implements IEventHandler {
+        protected PdfFormXObject placeholder;
+        protected float side = 20;
+        protected float x = 805;
+        protected float y = 25;
+        protected float space = 4.5f;
+        protected float descent = 3;
+ 
+        public Footer() {
+            placeholder = new PdfFormXObject(new Rectangle(0, 0, side, side));
+        }
+ 
+        @Override
+        public void handleEvent(Event event) {
+            PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
+            PdfDocument pdf = docEvent.getDocument();
+            PdfPage page = docEvent.getPage();
+            //Nutzt nicht "Landscape"
+            Rectangle pageSize = page.getPageSizeWithRotation();
+ 
+            // Creates drawing canvas
+            PdfCanvas pdfCanvas = new PdfCanvas(page);
+            Canvas canvas = new Canvas(pdfCanvas, pdf, pageSize);
+ 
+            Paragraph p = new Paragraph()
+            		.setFontSize(7)
+            		.setTextAlignment(TextAlignment.RIGHT)
+                    .add("Erstellt mit " + Properties.APPTITLE + " " + Properties.APPVERSION);
+ 
+            canvas.showTextAligned(p, x, y, TextAlignment.RIGHT);
+            canvas.close();
+ 
+            // Create placeholder object to write number of pages
+            pdfCanvas.addXObject(placeholder, x + space, y - descent);
+            pdfCanvas.release();
+        }
+    }
 }

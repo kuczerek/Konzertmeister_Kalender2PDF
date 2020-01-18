@@ -6,5 +6,6 @@ public class Properties {
 	//public static final private String icsUrl = "https://rest.konzertmeister.app/api/v1/ical/ae543cf8-87f1-4aa1-93ea-53368354612f?hideNegative=false";
 	public static final String REL_PATH_ICS = "./Konzertmeister Kalenderdateien/";
 	public static final String REL_PATH_PDF = "./Erstellte PDF Terminpläne/";
-			
+	public static final String APPTITLE = "Konzertmeister Kalender2PDF";
+	public static final String APPVERSION = "v1.1";
 }

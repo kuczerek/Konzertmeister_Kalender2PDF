@@ -262,7 +262,7 @@ public class Terminplan {
 			JOptionPane.showMessageDialog(null, "Problem mit dem Dateinamen des Konzertmeister Kalenders festgestellt.\n"
 					+ "Der vorgefundenene Dateiname lautet \"" + filename +"\".\n"
 					+ "Bitte stellen Sie sicher, dass der Dateiname dem Muster \"Konzertmeister JJJJ.MM.TT.-HH.MM.SS.ical\" entspricht.\n"
-					+ "Das Programm wird jetzt beendet.", "Konzertmeister Kalender2PDF", JOptionPane.ERROR_MESSAGE);
+					+ "Das Programm wird jetzt beendet.", Properties.APPTITLE, JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
     	

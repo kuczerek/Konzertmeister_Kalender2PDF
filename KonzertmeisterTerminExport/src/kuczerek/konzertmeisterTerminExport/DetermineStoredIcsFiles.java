@@ -29,7 +29,7 @@ public class DetermineStoredIcsFiles {
 		switch (sortedFilenames.size()){
 			case 0:
 				JOptionPane.showMessageDialog(null, "Es wurde keine Konzertmeister Kalenderdatei gefunden.\n"
-						+ "Das Programm wird beendet.", "Konzertmeister Kalender2PDF", JOptionPane.ERROR_MESSAGE);
+						+ "Das Programm wird beendet.", Properties.APPTITLE, JOptionPane.ERROR_MESSAGE);
 				System.exit(0);
 			case 1:
 				this.latestFile = relPath + sortedFilenames.get(0).toString();
